@@ -40,7 +40,7 @@ fn serialize_publisher_feed() {
                     .with_ymd_and_hms(2024, 4, 20, 0, 5, 50)
                     .unwrap(),
             ),
-            itunes_image: Some(ItunesImage {
+            itunes_image: Some(itunes::Image {
                 href: "https://example.com/john-doe.jpg".to_string(),
             }),
             podcast_guid: Some(
@@ -48,13 +48,13 @@ fn serialize_publisher_feed() {
             ),
             podcast_medium: Some("publisher".to_string()),
             podcast_remote_items: vec![
-                PodcastRemoteItem {
+                podcast::RemoteItem {
                     feed_guid: uuid::Uuid::parse_str("b9f0b2e5-6a56-5e73-83e4-af1c33769e73")
                         .unwrap(),
                     item_guid: None,
                     medium: Some("music".to_string()),
                 },
-                PodcastRemoteItem {
+                podcast::RemoteItem {
                     feed_guid: uuid::Uuid::parse_str("cb6e27c5-6d11-54a1-bf60-40537c0336e3")
                         .unwrap(),
                     item_guid: None,
