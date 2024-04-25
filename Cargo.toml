@@ -14,3 +14,8 @@ pretty_assertions = "1.4.0"
 
 [lib]
 doctest = false
+
+[dependencies]
+xml = "0.8.20"
+yaserde = {version="0.10.0"}
+yaserde_derive = "0.10.0"
