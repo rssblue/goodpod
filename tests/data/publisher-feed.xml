@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
+  <channel>
+    <description>John Doe is a fictional artist.</description>
+    <lastBuildDate>Sat, 20 Apr 2024 00:05:50 GMT</lastBuildDate>
+    <title>John Doe</title>
+    <itunes:image href="https://example.com/john-doe.jpg" />
+    <podcast:guid>4136005d-a5b9-534d-b32a-e88894e1ae4a</podcast:guid>
+    <podcast:medium>publisher</podcast:medium>
+    <podcast:remoteItem feedGuid="b9f0b2e5-6a56-5e73-83e4-af1c33769e73" medium="music" />
+    <podcast:remoteItem feedGuid="cb6e27c5-6d11-54a1-bf60-40537c0336e3" medium="music" />
+  </channel>
+</rss>

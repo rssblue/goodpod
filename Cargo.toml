@@ -16,6 +16,8 @@ pretty_assertions = "1.4.0"
 doctest = false
 
 [dependencies]
+chrono = "0.4.38"
+uuid = {version="1.8.0", features=["serde"]}
 xml = "0.8.20"
 yaserde = {version="0.10.0"}
 yaserde_derive = "0.10.0"
