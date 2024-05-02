@@ -6,7 +6,7 @@ use pretty_assertions::assert_eq;
 fn serialize_simple_feed() {
     let rss = Rss {
         channel: Channel {
-            title: Some("My title".to_string()),
+            title: Some("My <strong>title</strong>".to_string()),
             description: Some("My description".to_string()),
             generator: Some("RSS Blue v1.0".to_string()),
             last_build_date: None,

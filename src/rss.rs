@@ -52,7 +52,9 @@ pub struct Channel {
     pub generator: Option<String>,
     pub last_build_date: Option<chrono::DateTime<chrono::Utc>>,
     pub title: Option<String>,
+
     pub itunes_image: Option<itunes::Image>,
+
     pub podcast_guid: Option<Uuid>,
     pub podcast_medium: Option<String>,
     pub podcast_remote_items: Vec<podcast::RemoteItem>,
