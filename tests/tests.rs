@@ -6,10 +6,10 @@ use pretty_assertions::assert_eq;
 fn serialize_simple_feed() {
     let rss = Rss {
         channel: Channel {
-            title: Some("My <strong>title</strong>".to_string()),
+            title: Some("My title".to_string()),
             description: Some("My description".to_string()),
             generator: Some("RSS Blue v1.0".to_string()),
-            last_build_date: None,
+
             ..Default::default()
         },
     };
@@ -35,7 +35,6 @@ fn serialize_publisher_feed() {
             title: Some("John Doe".to_string()),
             description: Some("John Doe is a fictional artist.".to_string()),
             last_build_date: Some(
-                // Construct using year, month, day, hour, minute, second
                 chrono::prelude::Utc
                     .with_ymd_and_hms(2024, 4, 20, 0, 5, 50)
                     .unwrap(),
@@ -46,7 +45,7 @@ fn serialize_publisher_feed() {
             podcast_guid: Some(
                 uuid::Uuid::parse_str("4136005d-a5b9-534d-b32a-e88894e1ae4a").unwrap(),
             ),
-            podcast_medium: Some("publisher".to_string()),
+            podcast_medium: Some(podcast::Medium::Publisher),
             podcast_remote_items: vec![
                 podcast::RemoteItem {
                     feed_guid: uuid::Uuid::parse_str("b9f0b2e5-6a56-5e73-83e4-af1c33769e73")
@@ -66,6 +65,47 @@ fn serialize_publisher_feed() {
     };
 
     let expected = include_str!("../tests/data/publisher-feed.xml").trim();
+    let actual = yaserde::ser::to_string_with_config(
+        &rss,
+        &yaserde::ser::Config {
+            perform_indent: true,
+            indent_string: Some("  ".to_string()),
+            write_document_declaration: true,
+        },
+    )
+    .unwrap();
+
+    assert_eq!(expected, actual);
+}
+
+#[test]
+fn serialize_complex_feed() {
+    let rss = Rss {
+        channel: Channel {
+            title: Some("My <strong>title</strong>".to_string()),
+            description: Some("My description".to_string()),
+            generator: Some("RSS Blue v1.0".to_string()),
+            last_build_date: None,
+
+            podcast_funding: vec![
+                podcast::Funding {
+                    url: url::Url::parse("https://www.example.com/donations").unwrap(),
+                    display_text: "Support the show!".to_string(),
+                },
+                podcast::Funding {
+                    url: url::Url::parse("https://www.example.com/members").unwrap(),
+                    display_text: "Become a member!".to_string(),
+                },
+            ],
+            podcast_locked: Some(podcast::Locked {
+                value: false,
+                owner_email: Some("john@example.com".to_string()),
+            }),
+            ..Default::default()
+        },
+    };
+
+    let expected = include_str!("../tests/data/complex-feed.xml").trim();
     let actual = yaserde::ser::to_string_with_config(
         &rss,
         &yaserde::ser::Config {

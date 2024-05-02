@@ -55,8 +55,10 @@ pub struct Channel {
 
     pub itunes_image: Option<itunes::Image>,
 
+    pub podcast_funding: Vec<podcast::Funding>,
     pub podcast_guid: Option<Uuid>,
-    pub podcast_medium: Option<String>,
+    pub podcast_locked: Option<podcast::Locked>,
+    pub podcast_medium: Option<podcast::Medium>,
     pub podcast_remote_items: Vec<podcast::RemoteItem>,
 }
 
@@ -66,7 +68,9 @@ impl Channel {
     }
 
     fn has_podcast_tags(&self) -> bool {
-        self.podcast_guid.is_some()
+        self.podcast_funding.len() > 0
+            || self.podcast_guid.is_some()
+            || self.podcast_locked.is_some()
             || self.podcast_medium.is_some()
             || self.podcast_remote_items.len() > 0
     }
@@ -139,27 +143,19 @@ impl yaserde::YaSerialize for Channel {
         }
 
         if let Some(podcast_guid) = &self.podcast_guid {
-            writer
-                .write(xml::writer::XmlEvent::start_element("podcast:guid"))
-                .map_err(|e| e.to_string())?;
-            writer
-                .write(xml::writer::XmlEvent::characters(&podcast_guid.to_string()))
-                .map_err(|e| e.to_string())?;
-            writer
-                .write(xml::writer::XmlEvent::end_element())
-                .map_err(|e| e.to_string())?;
+            crate::podcast::serialize_guid(writer, *podcast_guid)?;
+        }
+
+        for funding in &self.podcast_funding {
+            funding.serialize(writer)?;
+        }
+
+        if let Some(podcast_locked) = &self.podcast_locked {
+            podcast_locked.serialize(writer)?;
         }
 
         if let Some(podcast_medium) = &self.podcast_medium {
-            writer
-                .write(xml::writer::XmlEvent::start_element("podcast:medium"))
-                .map_err(|e| e.to_string())?;
-            writer
-                .write(xml::writer::XmlEvent::characters(podcast_medium))
-                .map_err(|e| e.to_string())?;
-            writer
-                .write(xml::writer::XmlEvent::end_element())
-                .map_err(|e| e.to_string())?;
+            podcast_medium.serialize(writer)?;
         }
 
         for remote_item in &self.podcast_remote_items {
@@ -189,8 +185,12 @@ impl Default for Channel {
             generator: None,
             last_build_date: None,
             title: None,
+
             itunes_image: None,
+
+            podcast_funding: Vec::new(),
             podcast_guid: None,
+            podcast_locked: None,
             podcast_medium: None,
             podcast_remote_items: Vec::new(),
         }

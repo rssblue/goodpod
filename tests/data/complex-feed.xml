@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
+  <channel>
+    <description>My description</description>
+    <generator>RSS Blue v1.0</generator>
+    <title>My &lt;strong&gt;title&lt;/strong&gt;</title>
+    <podcast:funding url="https://www.example.com/donations">Support the show!</podcast:funding>
+    <podcast:funding url="https://www.example.com/members">Become a member!</podcast:funding>
+    <podcast:locked owner="john@example.com">no</podcast:locked>
+  </channel>
+</rss>
+
