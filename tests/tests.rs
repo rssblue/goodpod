@@ -52,13 +52,13 @@ fn serialize_publisher_feed() {
                     feed_guid: uuid::Uuid::parse_str("b9f0b2e5-6a56-5e73-83e4-af1c33769e73")
                         .unwrap(),
                     item_guid: None,
-                    medium: Some("music".to_string()),
+                    medium: Some(podcast::Medium::Music),
                 },
                 podcast::RemoteItem {
                     feed_guid: uuid::Uuid::parse_str("cb6e27c5-6d11-54a1-bf60-40537c0336e3")
                         .unwrap(),
                     item_guid: None,
-                    medium: Some("music".to_string()),
+                    medium: Some(podcast::Medium::Music),
                 },
             ],
             ..Default::default()

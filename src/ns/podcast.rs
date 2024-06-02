@@ -6,7 +6,7 @@ use xml::namespace::Namespace;
 pub struct RemoteItem {
     pub feed_guid: Uuid,
     pub item_guid: Option<String>,
-    pub medium: Option<String>,
+    pub medium: Option<Medium>,
 }
 
 impl yaserde::YaSerialize for RemoteItem {
@@ -24,7 +24,7 @@ impl yaserde::YaSerialize for RemoteItem {
         }
 
         if let Some(medium) = &self.medium {
-            el = el.attr("medium", medium);
+            el = el.attr("medium", medium.as_ref());
         }
 
         writer.write(el).map_err(|e| e.to_string())?;
@@ -106,24 +106,30 @@ pub enum Medium {
 
 impl std::fmt::Display for Medium {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        return write!(f, "{}", self.as_ref());
+    }
+}
+
+impl AsRef<str> for Medium {
+    fn as_ref(&self) -> &str {
         match self {
-            Medium::Podcast => write!(f, "podcast"),
-            Medium::Music => write!(f, "music"),
-            Medium::Video => write!(f, "video"),
-            Medium::Film => write!(f, "film"),
-            Medium::Audiobook => write!(f, "audiobook"),
-            Medium::Newsletter => write!(f, "newsletter"),
-            Medium::Blog => write!(f, "blog"),
-            Medium::Publisher => write!(f, "publisher"),
-            Medium::PodcastList => write!(f, "podcastL"),
-            Medium::MusicList => write!(f, "musicL"),
-            Medium::VideoList => write!(f, "videoL"),
-            Medium::FilmList => write!(f, "filmL"),
-            Medium::AudiobookList => write!(f, "audiobookL"),
-            Medium::NewsletterList => write!(f, "newsletterL"),
-            Medium::BlogList => write!(f, "blogL"),
-            Medium::PublisherList => write!(f, "publisherL"),
-            Medium::Mixed => write!(f, "mixed"),
+            Medium::Podcast => "podcast",
+            Medium::Music => "music",
+            Medium::Video => "video",
+            Medium::Film => "film",
+            Medium::Audiobook => "audiobook",
+            Medium::Newsletter => "newsletter",
+            Medium::Blog => "blog",
+            Medium::Publisher => "publisher",
+            Medium::PodcastList => "podcastL",
+            Medium::MusicList => "musicL",
+            Medium::VideoList => "videoL",
+            Medium::FilmList => "filmL",
+            Medium::AudiobookList => "audiobookL",
+            Medium::NewsletterList => "newsletterL",
+            Medium::BlogList => "blogL",
+            Medium::PublisherList => "publisherL",
+            Medium::Mixed => "mixed",
         }
     }
 }
