@@ -1,5 +1,6 @@
 use crate::itunes;
 use crate::podcast;
+use crate::Language;
 
 use uuid::Uuid;
 use xml::attribute::OwnedAttribute;
@@ -50,6 +51,7 @@ impl yaserde::YaSerialize for Rss {
 pub struct Channel {
     pub description: Option<String>,
     pub generator: Option<String>,
+    pub language: Option<Language>,
     pub last_build_date: Option<chrono::DateTime<chrono::Utc>>,
     pub title: Option<String>,
 
@@ -103,6 +105,20 @@ impl yaserde::YaSerialize for Channel {
                 .map_err(|e| e.to_string())?;
             writer
                 .write(xml::writer::XmlEvent::characters(generator))
+                .map_err(|e| e.to_string())?;
+            writer
+                .write(xml::writer::XmlEvent::end_element())
+                .map_err(|e| e.to_string())?;
+        }
+
+        if let Some(language) = &self.language {
+            writer
+                .write(xml::writer::XmlEvent::start_element("language"))
+                .map_err(|e| e.to_string())?;
+            writer
+                .write(xml::writer::XmlEvent::characters(
+                    language.to_string().as_str(),
+                ))
                 .map_err(|e| e.to_string())?;
             writer
                 .write(xml::writer::XmlEvent::end_element())
@@ -183,6 +199,7 @@ impl Default for Channel {
         Self {
             description: None,
             generator: None,
+            language: None,
             last_build_date: None,
             title: None,
 

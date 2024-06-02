@@ -17,6 +17,8 @@ doctest = false
 
 [dependencies]
 chrono = "0.4.38"
+strum = "0.26.2"
+strum_macros = "0.26.3"
 url = "2.5.0"
 uuid = {version="1.8.0", features=["serde"]}
 xml = "0.8.20"

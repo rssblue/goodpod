@@ -9,6 +9,7 @@ fn serialize_simple_feed() {
             title: Some("My title".to_string()),
             description: Some("My description".to_string()),
             generator: Some("RSS Blue v1.0".to_string()),
+            language: Some(Language::English(LanguageEnglish::UnitedStates)),
 
             ..Default::default()
         },

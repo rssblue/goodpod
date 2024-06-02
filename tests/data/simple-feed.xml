@@ -3,6 +3,7 @@
   <channel>
     <description>My description</description>
     <generator>RSS Blue v1.0</generator>
+    <language>en-us</language>
     <title>My title</title>
   </channel>
 </rss>

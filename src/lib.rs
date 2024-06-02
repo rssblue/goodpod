@@ -1,5 +1,6 @@
 #![doc = include_str!("../README.md")]
 
+mod language;
 mod rss;
 
 mod ns {
@@ -7,6 +8,7 @@ mod ns {
     pub mod podcast;
 }
 
+pub use language::*;
 pub use ns::itunes;
 pub use ns::podcast;
 pub use rss::*;
