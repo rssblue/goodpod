@@ -10,3 +10,7 @@ mod ns {
 pub use ns::itunes;
 pub use ns::podcast;
 pub use rss::*;
+
+pub mod ser {
+    pub use yaserde::ser::*;
+}

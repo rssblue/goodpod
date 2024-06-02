@@ -15,9 +15,9 @@ fn serialize_simple_feed() {
     };
 
     let expected = include_str!("../tests/data/simple-feed.xml").trim();
-    let actual = yaserde::ser::to_string_with_config(
+    let actual = goodpod::ser::to_string_with_config(
         &rss,
-        &yaserde::ser::Config {
+        &goodpod::ser::Config {
             perform_indent: true,
             indent_string: Some("  ".to_string()),
             write_document_declaration: true,
@@ -65,9 +65,9 @@ fn serialize_publisher_feed() {
     };
 
     let expected = include_str!("../tests/data/publisher-feed.xml").trim();
-    let actual = yaserde::ser::to_string_with_config(
+    let actual = goodpod::ser::to_string_with_config(
         &rss,
-        &yaserde::ser::Config {
+        &goodpod::ser::Config {
             perform_indent: true,
             indent_string: Some("  ".to_string()),
             write_document_declaration: true,
@@ -106,9 +106,9 @@ fn serialize_complex_feed() {
     };
 
     let expected = include_str!("../tests/data/complex-feed.xml").trim();
-    let actual = yaserde::ser::to_string_with_config(
+    let actual = goodpod::ser::to_string_with_config(
         &rss,
-        &yaserde::ser::Config {
+        &goodpod::ser::Config {
             perform_indent: true,
             indent_string: Some("  ".to_string()),
             write_document_declaration: true,
