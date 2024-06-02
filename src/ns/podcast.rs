@@ -6,6 +6,7 @@ use xml::namespace::Namespace;
 pub struct RemoteItem {
     pub feed_guid: Uuid,
     pub item_guid: Option<String>,
+    pub feed_url: Option<Url>,
     pub medium: Option<Medium>,
 }
 
@@ -21,6 +22,10 @@ impl yaserde::YaSerialize for RemoteItem {
 
         if let Some(item_guid) = &self.item_guid {
             el = el.attr("itemGuid", item_guid);
+        }
+
+        if let Some(feed_url) = &self.feed_url {
+            el = el.attr("feedUrl", feed_url.as_str());
         }
 
         if let Some(medium) = &self.medium {

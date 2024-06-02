@@ -8,6 +8,6 @@
     <podcast:guid>4136005d-a5b9-534d-b32a-e88894e1ae4a</podcast:guid>
     <podcast:medium>publisher</podcast:medium>
     <podcast:remoteItem feedGuid="b9f0b2e5-6a56-5e73-83e4-af1c33769e73" medium="music" />
-    <podcast:remoteItem feedGuid="cb6e27c5-6d11-54a1-bf60-40537c0336e3" medium="music" />
+    <podcast:remoteItem feedGuid="cb6e27c5-6d11-54a1-bf60-40537c0336e3" feedUrl="https://www.example.com/feed.xml" medium="music" />
   </channel>
 </rss>
