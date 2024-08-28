@@ -48,6 +48,7 @@ impl yaserde::YaSerialize for Rss {
     }
 }
 
+#[derive(Default)]
 pub struct Channel {
     pub description: Option<String>,
     pub generator: Option<String>,
@@ -70,11 +71,11 @@ impl Channel {
     }
 
     fn has_podcast_tags(&self) -> bool {
-        self.podcast_funding.len() > 0
+        !self.podcast_funding.is_empty()
             || self.podcast_guid.is_some()
             || self.podcast_locked.is_some()
             || self.podcast_medium.is_some()
-            || self.podcast_remote_items.len() > 0
+            || !self.podcast_remote_items.is_empty()
     }
 }
 
@@ -191,25 +192,5 @@ impl yaserde::YaSerialize for Channel {
         namespace: Namespace,
     ) -> Result<(Vec<OwnedAttribute>, Namespace), String> {
         Ok((attributes, namespace))
-    }
-}
-
-impl Default for Channel {
-    fn default() -> Self {
-        Self {
-            description: None,
-            generator: None,
-            language: None,
-            last_build_date: None,
-            title: None,
-
-            itunes_image: None,
-
-            podcast_funding: Vec::new(),
-            podcast_guid: None,
-            podcast_locked: None,
-            podcast_medium: None,
-            podcast_remote_items: Vec::new(),
-        }
     }
 }

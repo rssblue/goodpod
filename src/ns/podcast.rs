@@ -111,7 +111,7 @@ pub enum Medium {
 
 impl std::fmt::Display for Medium {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        return write!(f, "{}", self.as_ref());
+        write!(f, "{}", self.as_ref())
     }
 }
 
@@ -149,7 +149,7 @@ impl yaserde::YaSerialize for Medium {
             .map_err(|e| e.to_string())?;
 
         writer
-            .write(xml::writer::XmlEvent::characters(&self.to_string()))
+            .write(xml::writer::XmlEvent::characters(self.as_ref()))
             .map_err(|e| e.to_string())?;
 
         writer
