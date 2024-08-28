@@ -18,10 +18,9 @@ doctest = false
 
 [dependencies]
 chrono = "0.4.38"
-strum = "0.26.2"
-strum_macros = "0.26.3"
-url = "2.5.0"
-uuid = {version="1.8.0", features=["serde"]}
+strum = {version="0.26.3", features=["derive"]}
+url = "2.5.2"
+uuid = {version="1.10.0", features=["serde"]}
 xml = "0.8.20"
-yaserde = {version="0.10.0"}
-yaserde_derive = "0.10.0"
+yaserde = {version="0.10.1"}
+yaserde_derive = "0.10.1"
