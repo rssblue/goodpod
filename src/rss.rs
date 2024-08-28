@@ -2,6 +2,7 @@ use crate::itunes;
 use crate::podcast;
 use crate::Language;
 
+use url::Url;
 use uuid::Uuid;
 use xml::attribute::OwnedAttribute;
 use xml::namespace::Namespace;
@@ -55,6 +56,7 @@ pub struct Channel {
     pub language: Option<Language>,
     pub last_build_date: Option<chrono::DateTime<chrono::Utc>>,
     pub title: Option<String>,
+    pub link: Option<Url>,
 
     pub itunes_image: Option<itunes::Image>,
 
@@ -149,6 +151,20 @@ impl yaserde::YaSerialize for Channel {
                 .map_err(|e| e.to_string())?;
             writer
                 .write(xml::writer::XmlEvent::characters(title))
+                .map_err(|e| e.to_string())?;
+            writer
+                .write(xml::writer::XmlEvent::end_element())
+                .map_err(|e| e.to_string())?;
+        }
+
+        if let Some(link) = &self.link {
+            writer
+                .write(xml::writer::XmlEvent::start_element("link"))
+                .map_err(|e| e.to_string())?;
+            writer
+                .write(xml::writer::XmlEvent::characters(
+                    link.as_str().trim_end_matches('/'),
+                ))
                 .map_err(|e| e.to_string())?;
             writer
                 .write(xml::writer::XmlEvent::end_element())

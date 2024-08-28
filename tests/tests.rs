@@ -1,6 +1,7 @@
 use chrono::prelude::*;
 use goodpod::*;
 use pretty_assertions::assert_eq;
+use url::Url;
 
 #[test]
 fn serialize_simple_feed() {
@@ -86,6 +87,7 @@ fn serialize_complex_feed() {
     let rss = Rss {
         channel: Channel {
             title: Some("My <strong>title</strong>".to_string()),
+            link: Some(Url::parse("https://example.com").unwrap()),
             description: Some("My description".to_string()),
             generator: Some("RSS Blue v1.0".to_string()),
             last_build_date: None,
